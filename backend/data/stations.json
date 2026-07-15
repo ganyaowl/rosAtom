@@ -1,0 +1,22 @@
+[
+  { "id": "st-001", "name": "Ереван", "region": "г. Ереван", "latitude": 40.1792, "longitude": 44.4991 },
+  { "id": "st-002", "name": "Гюмри", "region": "Ширакская область", "latitude": 40.7942, "longitude": 43.8481 },
+  { "id": "st-003", "name": "Ванадзор", "region": "Лорийская область", "latitude": 40.8128, "longitude": 44.4886 },
+  { "id": "st-004", "name": "Вагаршапат", "region": "Армавирская область", "latitude": 40.1611, "longitude": 44.2911 },
+  { "id": "st-005", "name": "Раздан", "region": "Котайкская область", "latitude": 40.4972, "longitude": 44.7681 },
+  { "id": "st-006", "name": "Абовян", "region": "Котайкская область", "latitude": 40.2764, "longitude": 44.6219 },
+  { "id": "st-007", "name": "Капан", "region": "Сюникская область", "latitude": 39.2039, "longitude": 46.4064 },
+  { "id": "st-008", "name": "Армавир", "region": "Армавирская область", "latitude": 40.1511, "longitude": 44.0428 },
+  { "id": "st-009", "name": "Арташат", "region": "Араратская область", "latitude": 39.9506, "longitude": 44.5486 },
+  { "id": "st-010", "name": "Иджеван", "region": "Тавушская область", "latitude": 40.8781, "longitude": 45.1489 },
+  { "id": "st-011", "name": "Севан", "region": "Гегаркуникская область", "latitude": 40.5486, "longitude": 44.9550 },
+  { "id": "st-012", "name": "Горис", "region": "Сюникская область", "latitude": 39.5122, "longitude": 46.3378 },
+  { "id": "st-013", "name": "Аштарак", "region": "Арагацотнская область", "latitude": 40.2989, "longitude": 44.3628 },
+  { "id": "st-014", "name": "Чаренцаван", "region": "Котайкская область", "latitude": 40.5511, "longitude": 44.6086 },
+  { "id": "st-015", "name": "Масис", "region": "Араратская область", "latitude": 39.9633, "longitude": 44.4353 },
+  { "id": "st-016", "name": "Дилижан", "region": "Тавушская область", "latitude": 40.7419, "longitude": 44.8636 },
+  { "id": "st-017", "name": "Гавар", "region": "Гегаркуникская область", "latitude": 40.3597, "longitude": 45.1275 },
+  { "id": "st-018", "name": "Мартуни", "region": "Гегаркуникская область", "latitude": 40.1381, "longitude": 45.3211 },
+  { "id": "st-019", "name": "Вайк", "region": "Вайоцдзорская область", "latitude": 39.6900, "longitude": 45.4425 },
+  { "id": "st-020", "name": "Мегри", "region": "Сюникская область", "latitude": 38.9089, "longitude": 46.2419 }
+]

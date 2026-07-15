@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Radiation Monitor",
+    "slug": "radiation-monitor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#0B1120"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hackathon.radiationmonitor",
+      "config": {
+        "usesNonExemptEncryption": false,
+        "googleMapsApiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+      }
+    },
+    "android": {
+      "package": "com.hackathon.radiationmonitor",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B1120"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+        }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-audio"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8af6d3c9-7f76-4753-a0f4-f3c4272bbe63"
+      }
+    }
+  }
+}

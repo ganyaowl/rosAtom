@@ -1,0 +1,7 @@
+[
+  { "id": "zone-north", "name": "Север", "centerLat": 41.05, "centerLon": 44.55, "baseline": 60 },
+  { "id": "zone-south", "name": "Юг", "centerLat": 39.35, "centerLon": 45.35, "baseline": 55 },
+  { "id": "zone-west", "name": "Запад", "centerLat": 40.10, "centerLon": 43.75, "baseline": 65 },
+  { "id": "zone-east", "name": "Восток", "centerLat": 40.10, "centerLon": 45.60, "baseline": 70 },
+  { "id": "zone-center", "name": "Центр", "centerLat": 40.30, "centerLon": 44.60, "baseline": 90 }
+]
