@@ -31,7 +31,16 @@ android {
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+        create("meow") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".meow"
+            versionNameSuffix = "-meow"
+            isDebuggable = true
+            matchingFallbacks += listOf("debug")
+        }
     }
+
+    sourceSets.getByName("meow").assets.srcDir("../../assets")
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

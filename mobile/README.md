@@ -47,6 +47,14 @@ mobile/dist/radiation-monitor.apk
 mobile/android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
+В ветке `meow` мемная версия собирается отдельной командой:
+
+```bash
+bash scripts/build-meow-apk.sh
+```
+
+Результат: `mobile/dist/radiation-monitor-meow.apk`.
+
 ## Установка на телефон
 
 Подключите телефон с включённой USB-отладкой:
