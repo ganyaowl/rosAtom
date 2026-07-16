@@ -146,8 +146,8 @@ private fun interpolatedLevel(latitude: Double, longitude: Double, zones: List<Z
 }
 
 private fun radiationGradient(level: Double): Color = when {
-    level < 0.30 -> lerp(Color(0xFF30D158), Color(0xFFFFD60A), ((level - 0.06) / 0.24).toFloat().coerceIn(0f, 1f))
-    level < 0.60 -> lerp(Color(0xFFFFD60A), Color(0xFFFF9F0A), ((level - 0.30) / 0.30).toFloat())
+    level < 0.24 -> lerp(Color(0xFF20C76A), Color(0xFFFFD60A), ((level - 0.10) / 0.14).toFloat().coerceIn(0f, 1f))
+    level < 0.60 -> lerp(Color(0xFFFFD60A), Color(0xFFFF9F0A), ((level - 0.24) / 0.36).toFloat())
     level < 1.00 -> lerp(Color(0xFFFF9F0A), Color(0xFFFF453A), ((level - 0.60) / 0.40).toFloat())
     else -> Color(0xFFFF453A)
 }
@@ -193,7 +193,7 @@ fun OsmMap(
             ColoredRadiationHex(
                 latitude = cell.latitude,
                 longitude = cell.longitude,
-                color = radiationGradient(level).copy(alpha = if (level >= 1.0) 0.78f else 0.60f),
+                color = radiationGradient(level).copy(alpha = if (level >= 0.60) 0.88f else 0.78f),
             )
         }
     }
@@ -257,7 +257,7 @@ fun OsmMap(
         }
 
         Canvas(Modifier.fillMaxSize()) {
-            val borderColor = Color.White.copy(alpha = 0.28f)
+            val borderColor = Color(0xFF10243A).copy(alpha = 0.34f)
             coloredHexes.forEach { cell ->
                 val centerX = with(density) {
                     ((worldX(cell.longitude, tileZoom) - left) * renderScale).toFloat().dp.toPx()
