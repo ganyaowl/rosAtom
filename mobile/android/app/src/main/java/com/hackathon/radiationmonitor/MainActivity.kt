@@ -1,6 +1,10 @@
 package com.hackathon.radiationmonitor
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -94,6 +98,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -103,22 +108,70 @@ import kotlin.math.sin
 
 class MainActivity : ComponentActivity() {
     private val store by lazy { RadiationStore(applicationContext) }
+    private var showMeowCharge by mutableStateOf(false)
+    private var meowReceiverRegistered = false
+    private val meowChargeReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            showMeowCharge = true
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { RadiationTheme(store.darkTheme) { RadiationApp(store) } }
+        showMeowCharge = BuildConfig.IS_MEOW && intent.action == MEOW_ACTION_SHOW_CHARGE
+        setContent {
+            RadiationTheme(store.darkTheme) {
+                RadiationApp(
+                    store = store,
+                    showMeowCharge = showMeowCharge,
+                    dismissMeowCharge = { showMeowCharge = false },
+                )
+            }
+        }
+        if (BuildConfig.IS_MEOW) startMeowService()
     }
 
     override fun onStart() {
         super.onStart()
         store.start()
+        if (BuildConfig.IS_MEOW && !meowReceiverRegistered) {
+            val filter = IntentFilter(MEOW_ACTION_CHARGE_TRIGGERED)
+            if (Build.VERSION.SDK_INT >= 33) {
+                registerReceiver(meowChargeReceiver, filter, RECEIVER_NOT_EXPORTED)
+            } else {
+                @Suppress("UnspecifiedRegisterReceiverFlag")
+                registerReceiver(meowChargeReceiver, filter)
+            }
+            meowReceiverRegistered = true
+        }
     }
 
     override fun onStop() {
+        if (meowReceiverRegistered) {
+            unregisterReceiver(meowChargeReceiver)
+            meowReceiverRegistered = false
+        }
         store.stop()
         super.onStop()
     }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (BuildConfig.IS_MEOW && intent.action == MEOW_ACTION_SHOW_CHARGE) showMeowCharge = true
+    }
+
+    private fun startMeowService() {
+        val serviceIntent = Intent().setClassName(
+            packageName,
+            "com.hackathon.radiationmonitor.MeowService",
+        )
+        ContextCompat.startForegroundService(this, serviceIntent)
+    }
 }
+
+private const val MEOW_ACTION_CHARGE_TRIGGERED = "com.hackathon.radiationmonitor.meow.CHARGE_TRIGGERED"
+private const val MEOW_ACTION_SHOW_CHARGE = "com.hackathon.radiationmonitor.meow.SHOW_CHARGE"
 
 private val DarkScheme = darkColorScheme(
     primary = Color(0xFF0A84FF),
@@ -150,7 +203,11 @@ private fun RadiationTheme(dark: Boolean, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun RadiationApp(store: RadiationStore) {
+private fun RadiationApp(
+    store: RadiationStore,
+    showMeowCharge: Boolean = false,
+    dismissMeowCharge: () -> Unit = {},
+) {
     var tab by remember { mutableStateOf(AppTab.HOME) }
     var stationDetail by remember { mutableStateOf<Station?>(null) }
     var showNotificationPrompt by remember { mutableStateOf(store.shouldShowNotificationPrompt) }
@@ -164,6 +221,8 @@ private fun RadiationApp(store: RadiationStore) {
             store.setNotifications(true)
         }
     }
+
+    if (showMeowCharge) MeowChargeDialog(dismissMeowCharge)
 
     store.activeAlert?.let { alert ->
         EmergencyScreen(alert, store::dismissAlert)
@@ -230,6 +289,28 @@ private fun RadiationApp(store: RadiationStore) {
             },
         )
     }
+}
+
+@Composable
+private fun MeowChargeDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Списание средств", fontWeight = FontWeight.ExtraBold) },
+        text = { Text("У вас списали 1000 рублей.", fontSize = 18.sp) },
+        confirmButton = {
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD92D20)),
+            ) {
+                Text("Понятно", fontWeight = FontWeight.Bold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text("Закрыть") }
+        },
+    )
 }
 
 @Composable

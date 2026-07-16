@@ -11,21 +11,9 @@
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"
-            tools:node="remove" />
-
-        <activity
-            android:name=".MeowActivity"
-            android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:turnScreenOn="true" />
 
         <service
             android:name=".MeowService"

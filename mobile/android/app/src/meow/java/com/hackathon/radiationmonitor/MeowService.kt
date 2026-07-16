@@ -50,7 +50,7 @@ class MeowService : Service() {
         playMusicFromStart()
         sendBroadcast(Intent(ACTION_CHARGE_TRIGGERED).setPackage(packageName))
 
-        val dialogIntent = Intent(this, MeowActivity::class.java).apply {
+        val dialogIntent = Intent(this, MainActivity::class.java).apply {
             action = ACTION_SHOW_CHARGE
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -133,7 +133,7 @@ class MeowService : Service() {
             PendingIntent.getActivity(
                 this,
                 1000,
-                Intent(this, MeowActivity::class.java),
+                Intent(this, MainActivity::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             ),
         )
